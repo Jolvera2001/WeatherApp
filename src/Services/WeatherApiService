@@ -1,10 +1,44 @@
 import { config } from './config'
+import { RealTimeModel } from '../Models/RealTimeModel'
 
 class WeatherApiService implements IWeatherApiService {
-    ApiBaseUrl: string = "http://api.weatherapi.com/v1";
-    WeatherApiKey: string = config.weatherApiKey;
-    currentWeather(): void {
-        throw new Error("Method not implemented.");
+    ApiBaseUrl: string;
+    WeatherApiKey: string;
+
+    constructor() {
+        this.ApiBaseUrl= "http://api.weatherapi.com/v1/current.json";
+        this.WeatherApiKey= config.weatherApiKey;
+    }
+
+    async currentWeather(city: string): Promise<RealTimeModel> {
+        try {
+            const query = new URLSearchParams({
+                key: this.ApiBaseUrl,
+                q: city,
+                aqi: 'no',
+            });
+
+            const response = await fetch(`${this.ApiBaseUrl}?${query.toString()}`);
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! sttaus: ${response.status}`)
+            }
+
+            const jsonData = await response.json;
+
+            const data: RealTimeModel = {
+                // map stuff
+            }
+
+            return data;
+
+        } catch (error) {
+            console.error("Error calling current weather:", error);
+            
+            // empty == null???
+            const data = {} as RealTimeModel;
+            return data;
+        }
     }
 
 }
@@ -12,5 +46,11 @@ class WeatherApiService implements IWeatherApiService {
 interface IWeatherApiService {
     ApiBaseUrl: string;
     WeatherApiKey: string;
-    currentWeather(): void;
+    currentWeather(city: string): Promise<RealTimeModel>;
+}
+
+interface currentBody {
+    key: string;
+    q: string;
+    aqi: string;
 }
