@@ -1,0 +1,16 @@
+import { config } from './config'
+
+class WeatherApiService implements IWeatherApiService {
+    ApiBaseUrl: string = "http://api.weatherapi.com/v1";
+    WeatherApiKey: string = config.weatherApiKey;
+    currentWeather(): void {
+        throw new Error("Method not implemented.");
+    }
+
+}
+
+interface IWeatherApiService {
+    ApiBaseUrl: string;
+    WeatherApiKey: string;
+    currentWeather(): void;
+}
