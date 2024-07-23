@@ -1,19 +1,27 @@
 import { config } from './config'
 import { RealTimeModel, RealTimeModelSchema } from '../Models/CurrentModels'
 
-class WeatherApiService implements IWeatherApiService {
-    ApiBaseUrl: string;
-    WeatherApiKey: string;
+export class WeatherApiService implements IWeatherApiService {
+    private static Instance: WeatherApiService;
+    private ApiBaseUrl: string;
+    private WeatherApiKey: string;
 
     constructor() {
         this.ApiBaseUrl= "http://api.weatherapi.com/v1/current.json";
         this.WeatherApiKey= config.weatherApiKey;
     }
 
+    public static getInstance(): WeatherApiService {
+        if (!WeatherApiService.Instance) {
+            WeatherApiService.Instance = new WeatherApiService();
+        }
+        return WeatherApiService.Instance;
+    }
+
     async currentWeather(city: string): Promise<RealTimeModel> {
         try {
             const query = new URLSearchParams({
-                key: this.ApiBaseUrl,
+                key: this.WeatherApiKey,
                 q: city,
                 aqi: 'no',
             });
@@ -41,8 +49,12 @@ class WeatherApiService implements IWeatherApiService {
     }
 }
 
+export class WeatherApiServiceFactory {
+    public static createService(): WeatherApiService {
+        return WeatherApiService.getInstance();
+    }
+}
+
 interface IWeatherApiService {
-    ApiBaseUrl: string;
-    WeatherApiKey: string;
     currentWeather(city: string): Promise<RealTimeModel>;
 }

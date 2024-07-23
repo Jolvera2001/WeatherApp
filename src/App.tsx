@@ -4,8 +4,23 @@ import { cn } from '@/lib/utils'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
+import { RealTimeModel } from './Models/CurrentModels'
+import { WeatherApiServiceFactory } from './Services/WeatherApiService'
 
 function App() {
+  const [city, setCity] = useState<string>("");
+  const [currentData, setCurrentData] = useState<RealTimeModel | null>(null);
+
+  const fetchWeather = async () => {
+    const weatherService = WeatherApiServiceFactory.createService();
+    try {
+      const data = await weatherService.currentWeather(city);
+      setCurrentData(data);
+    } catch (err) {
+      console.log("Failed to get current weather")
+    }
+  }
+
   return (
     <>
       <div className='container mx-auto'>
