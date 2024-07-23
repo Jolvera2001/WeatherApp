@@ -3,15 +3,15 @@ import { z } from 'zod'
 const ConditionModelSchema = z.object({
     text: z.string(),
     icon: z.string(),
-    code: z.string(),
+    code: z.number(),
 });
 
 const LocationModelSchema = z.object({
     name: z.string(),
     region: z.string(),
     country: z.string(),
-    lat: z.string(),
-    lon: z.string(),
+    lat: z.number(),
+    lon: z.number(),
     tz_id: z.string(),
     localtime: z.string(),
 });
@@ -22,7 +22,7 @@ const CurrentModelSchema = z.object({
     is_day: z.number(),
     condition: ConditionModelSchema.optional(),
     wind_mph: z.number(),
-    wind_dir: z.number(),
+    wind_dir: z.string(),
     humidity: z.number(),
     cloud: z.number(),
     feelslike_f: z.number(),
