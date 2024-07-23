@@ -1,5 +1,5 @@
 import { config } from './config'
-import { RealTimeModel } from '../Models/RealTimeModel'
+import { RealTimeModel, RealTimeModelSchema } from '../Models/CurrentModels'
 
 class WeatherApiService implements IWeatherApiService {
     ApiBaseUrl: string;
@@ -26,9 +26,8 @@ class WeatherApiService implements IWeatherApiService {
 
             const jsonData = await response.json;
 
-            const data: RealTimeModel = {
-                // map stuff
-            }
+            // maps here
+            const data = RealTimeModelSchema.parse(jsonData);
 
             return data;
 
@@ -40,17 +39,10 @@ class WeatherApiService implements IWeatherApiService {
             return data;
         }
     }
-
 }
 
 interface IWeatherApiService {
     ApiBaseUrl: string;
     WeatherApiKey: string;
     currentWeather(city: string): Promise<RealTimeModel>;
-}
-
-interface currentBody {
-    key: string;
-    q: string;
-    aqi: string;
 }
