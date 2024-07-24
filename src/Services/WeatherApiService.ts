@@ -18,6 +18,7 @@ export class WeatherApiService implements IWeatherApiService {
             const query = new URLSearchParams({
                 key: this.WeatherApiKey,
                 q: city,
+                day: "5",
                 aqi: "no",
                 alerts: "no",
             });
