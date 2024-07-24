@@ -63,3 +63,9 @@ export const ForecastApiSchema = z.object({
     current: CurrentModelSchema.optional(), 
     forecast: ForecastSchema.optional(),
 })
+
+export type ForecastApiModel  = z.infer<typeof ForecastApiSchema>;
+type ForecastModel = z.infer<typeof ForecastSchema>;
+type HourModel = z.infer<typeof HourSchema>;
+type AstroModel = z.infer<typeof AstroSchema>;
+type DayModel = z.infer<typeof DaySchema>;
