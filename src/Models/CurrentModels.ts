@@ -1,12 +1,12 @@
 import { z } from 'zod'
 
-const ConditionModelSchema = z.object({
+export const ConditionModelSchema = z.object({
     text: z.string(),
     icon: z.string(),
     code: z.number(),
 });
 
-const LocationModelSchema = z.object({
+export const LocationModelSchema = z.object({
     name: z.string(),
     region: z.string(),
     country: z.string(),
@@ -16,7 +16,7 @@ const LocationModelSchema = z.object({
     localtime: z.string(),
 });
 
-const CurrentModelSchema = z.object({
+export const CurrentModelSchema = z.object({
     last_updated: z.string(),
     temp_f: z.number(),
     is_day: z.number(),
