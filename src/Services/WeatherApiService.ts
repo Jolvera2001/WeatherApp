@@ -12,6 +12,39 @@ export class WeatherApiService implements IWeatherApiService {
         this.ApiBaseUrlForecast = "http://api.weatherapi.com/v1/forecast.json";
         this.WeatherApiKey= config.weatherApiKey;
     }
+    dayMapper(daysAhead: number): string {
+        const currentDay = new Date().getDay();
+        const futureDayNumber = (currentDay + daysAhead) % 7;
+        let day: string;
+
+        switch (futureDayNumber) {
+            case 0:
+                day = "Sunday";
+                break;
+            case 1:
+                day = "Monday";
+                break;
+            case 2:
+                day = "Tuesday";
+                break;
+            case 3:
+                day = "Wednesday";
+                break;
+            case 4:
+                day = "Thursday";
+                break;
+            case 5:
+                day = "Friday";
+                break;
+            case 6:
+                day = "Saturday";
+                break;
+            default:
+                throw new Error('invalid')
+        }
+        
+        return day;
+    }
 
     async forecast(city: string): Promise<ForecastApiModel> {
         try {
@@ -68,6 +101,7 @@ export class WeatherApiService implements IWeatherApiService {
 interface IWeatherApiService {
     currentWeather(city: string): Promise<RealTimeModel>;
     forecast(city: string): Promise<ForecastApiModel>;
+    dayMapper(number: number): string;
 }
 
 export class WeatherApiServiceFactory {

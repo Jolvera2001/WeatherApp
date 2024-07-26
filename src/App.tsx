@@ -35,6 +35,12 @@ function App() {
     }
   }
 
+  const getDay = (num: number) => {
+    const weatherService = WeatherApiServiceFactory.createService();
+    const day = weatherService.dayMapper(num);
+    return day;
+  }
+
   const bigData = async () => {
     setIsBusy(true);
 
@@ -59,7 +65,7 @@ function App() {
         <div className='flex flex-col items-center justify-center'>
           <div className='flex-2 mx-4 text-lg'>
             {currentData ? (
-              <Card className={cn("w-[260px]")}>
+              <Card className={cn("w-[250px]")}>
                 { isBusy ? (
                 <>
                   <CardHeader>
@@ -120,9 +126,21 @@ function App() {
           </div>
           <div className='flex-2 flex-row m-2 items-center justify-evenly'>
             {forecast ? (
-              <></>
+              <>
+                {forecast.forecast?.map((item,index) => (
+                  <Card key={index} className={cn("w-[215px]")}>
+                    <CardHeader>
+                      <CardTitle>{getDay(index)}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+
+                    </CardContent>
+                  </Card>
+                ))}
+              </>
             ) : (
-              <></>
+              <>
+              </>
             )}
           </div>
         </div>

@@ -61,7 +61,7 @@ const ForecastSchema = z.object({
 export const ForecastApiSchema = z.object({
     location: LocationModelSchema.optional(),
     current: CurrentModelSchema.optional(), 
-    forecast: ForecastSchema.optional(),
+    forecast: ForecastSchema.array().optional(),
 })
 
 export type ForecastApiModel  = z.infer<typeof ForecastApiSchema>;
