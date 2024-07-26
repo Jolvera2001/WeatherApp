@@ -148,19 +148,19 @@ function App() {
                     <CardContent>
                       <div className='flex flex-row justify-evenly'>
                         <div className='flex flex-col text-xs items-center'>
-                          <img className='w-8' src={item.hour[7]?.condition?.icon} alt='weather image' />
+                          <img className='w-8' src={item.hour?.[7].condition?.icon} alt='weather image' />
                           <p>7 AM</p>
                         </div>
                         <div className='flex flex-col text-xs'>
-                          <img className='w-8' src={item.hour[12]?.condition?.icon} alt='weather image' />
+                          <img className='w-8' src={item.hour?.[12].condition?.icon} alt='weather image' />
                           <p>12 PM</p>
                         </div>
                         <div className='flex flex-col text-xs'>
-                          <img className='w-8' src={item.hour[17]?.condition?.icon} alt='weather image' />
+                          <img className='w-8' src={item.hour?.[17].condition?.icon} alt='weather image' />
                           <p>5 PM</p>
                         </div>
                         <div className='flex flex-col text-xs'>
-                          <img className='w-8' src={item.hour[22]?.condition?.icon} alt='weather image' />
+                          <img className='w-8' src={item.hour?.[22].condition?.icon} alt='weather image' />
                           <p>10 PM</p>
                         </div>
                       </div>
