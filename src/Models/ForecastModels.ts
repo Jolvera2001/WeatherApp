@@ -31,7 +31,7 @@ const AstroSchema = z.object({
 
 const HourSchema = z.object({
     time: z.string(),
-    temp_: z.number(),
+    temp_f: z.number(),
     is_day: z.number(),
     condition: ConditionModelSchema.optional(),
     wind_mph: z.number(),
@@ -52,20 +52,21 @@ const HourSchema = z.object({
     uv: z.number(),
 });
 
-const ForecastSchema = z.object({
+const ForecastDaySchema = z.object({
     day: DaySchema.optional(),
+    date: z.string(),
     astro: AstroSchema.optional(),
     hour: HourSchema.array().optional(),
 });
 
-const ForecastDaySchema = z.object({
-    forecastday: ForecastSchema.array().optional(),
+const ForecastSchema = z.object({
+    forecastday: ForecastDaySchema.array().optional(),
 })
 
 export const ForecastApiSchema = z.object({
     location: LocationModelSchema.optional(),
     current: CurrentModelSchema.optional(), 
-    forecast: ForecastDaySchema.optional(),
+    forecast: ForecastSchema.optional(),
 })
 
 export type ForecastApiModel  = z.infer<typeof ForecastApiSchema>;
