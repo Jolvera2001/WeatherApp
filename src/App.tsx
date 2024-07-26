@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './components/ui/card'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './components/ui/card'
+import { HoverCard, HoverCardTrigger, HoverCardContent } from '@/components/ui/hover-card'
 import { cn } from "@/lib/utils"
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
@@ -50,18 +51,30 @@ function App() {
     setIsBusy(false);
   }
 
-  // @ts-ignore
-    // @ts-ignore
-    // @ts-ignore
     return (
     <>
       <div className='container mx-auto'>
         <div className='flex flex-row justify-center container mx-auto my-6'>
-          <div className='flex-1 justify-center mx-2'>
+          <div className='justify-center mx-2'>
             <Input onChange={e => setCity(e.target.value)} />
           </div>
-          <div className='flex-2 mx-2'>
+          <div className='mx-2'>
             <Button onClick={bigData}>Refresh</Button>
+          </div>
+          <div>
+            <HoverCard>
+                <HoverCardTrigger asChild>
+                  <Button>@info</Button>
+                </HoverCardTrigger>
+                <HoverCardContent className="w-80">
+                  <div className='flex text-center'>
+                    <p>Weather information provided by <a href="https://www.weatherapi.com" target='_blank' rel="noopener noreferrer" className='underline'>
+                        weatherapi
+                      </a>.
+                      See README for in this <a href="https://github.com/Jolvera2001/WeatherApp?tab=readme-ov-file" target='_blank' rel="noopener noreferrer" className='underline'>repo</a> copying the codebase and setting it up with your own API key</p>
+                  </div>
+                </HoverCardContent>
+            </HoverCard>
           </div>
         </div>
         <Separator className='mx-auto my-6 w-5/6'/>
@@ -108,7 +121,6 @@ function App() {
                   </CardContent>
                 </>
                 )}
-                
               </Card>
             ) : (
               <Card className={cn("w-[215px]")}>
@@ -124,9 +136,6 @@ function App() {
         </div>
         <Separator className='mx-auto my-6 w-5/6'/>
         <div className='flex flex-col items-center justify-center'>
-          <div className='flex m-2'>
-            <h1 className='font-semibold text-4xl'>Forecast</h1>
-          </div>
           <div className='flex flex-row flex-wrap m-4 items-center justify-evenly w-full'>
             {forecast ? (
               <>
