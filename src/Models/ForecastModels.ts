@@ -53,19 +53,19 @@ const HourSchema = z.object({
 });
 
 const ForecastSchema = z.object({
-    day: DaySchema.array().optional(),
+    day: DaySchema.optional(),
     astro: AstroSchema.optional(),
     hour: HourSchema.array().optional(),
 });
 
+const ForecastDaySchema = z.object({
+    forecastday: ForecastSchema.array().optional(),
+})
+
 export const ForecastApiSchema = z.object({
     location: LocationModelSchema.optional(),
     current: CurrentModelSchema.optional(), 
-    forecast: ForecastSchema.array().optional(),
+    forecast: ForecastDaySchema.optional(),
 })
 
 export type ForecastApiModel  = z.infer<typeof ForecastApiSchema>;
-type ForecastModel = z.infer<typeof ForecastSchema>;
-type HourModel = z.infer<typeof HourSchema>;
-type AstroModel = z.infer<typeof AstroSchema>;
-type DayModel = z.infer<typeof DaySchema>;

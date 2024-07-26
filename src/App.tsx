@@ -127,19 +127,21 @@ function App() {
           <div className='flex-2 flex-row m-2 items-center justify-evenly'>
             {forecast ? (
               <>
-                {forecast.forecast?.map((item,index) => (
+                {console.log('forecast data:', forecast)}
+                {forecast.forecast?.forecastDay?.map((item,index) => (
                   <Card key={index} className={cn("w-[215px]")}>
                     <CardHeader>
                       <CardTitle>{getDay(index)}</CardTitle>
+                      <CardDescription>{item.condition?.text}</CardDescription>
                     </CardHeader>
                     <CardContent>
-
                     </CardContent>
                   </Card>
                 ))}
               </>
             ) : (
               <>
+              <p>yes</p>
               </>
             )}
           </div>
