@@ -1,20 +1,20 @@
-import { config } from './config'
-import { RealTimeModel, RealTimeModelSchema } from '../Models/CurrentModels'
-import { ForecastApiModel, ForecastApiSchema } from '@/Models/ForecastModels';
+import {config} from './config'
+import {RealTimeModel, RealTimeModelSchema} from '../Models/CurrentModels'
+import {ForecastApiModel, ForecastApiSchema} from '@/Models/ForecastModels';
 
 export class WeatherApiService implements IWeatherApiService {
-    private ApiBaseUrl: string;
-    private ApiBaseUrlForecast: string;
-    private WeatherApiKey: string;
+    private readonly ApiBaseUrl: string;
+    private readonly ApiBaseUrlForecast: string;
+    private readonly WeatherApiKey: string;
 
     constructor() {
-        this.ApiBaseUrl= "http://api.weatherapi.com/v1/current.json";
-        this.ApiBaseUrlForecast = "http://api.weatherapi.com/v1/forecast.json";
+        this.ApiBaseUrl= "https://api.weatherapi.com/v1/current.json";
+        this.ApiBaseUrlForecast = "https://api.weatherapi.com/v1/forecast.json";
         this.WeatherApiKey= config.weatherApiKey;
     }
     dayMapper(daysAhead: number): string {
         const currentDay = new Date().getDay();
-        const futureDayNumber = (currentDay + daysAhead) % 7;
+        const futureDayNumber = (currentDay + daysAhead + 1) % 7;
         let day: string;
 
         switch (futureDayNumber) {
@@ -63,13 +63,11 @@ export class WeatherApiService implements IWeatherApiService {
 
             const jsonData = await response.json();
             console.log(jsonData);
-            const data = ForecastApiSchema.parse(jsonData);
-            return data;
+            return ForecastApiSchema.parse(jsonData);
 
         } catch (err) {
             console.error("Error calling forecast", err);
-            const data = {} as ForecastApiModel;
-            return data;
+            return {} as ForecastApiModel;
         }
     }
 
@@ -88,13 +86,11 @@ export class WeatherApiService implements IWeatherApiService {
             }
 
             const jsonData = await response.json();
-            const data = RealTimeModelSchema.parse(jsonData);
-            return data;
+            return RealTimeModelSchema.parse(jsonData);
 
         } catch (err) {
             console.error("Error calling current weather:", err);
-            const data = {} as RealTimeModel;
-            return data;
+            return {} as RealTimeModel;
         }
     }
 }

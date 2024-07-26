@@ -50,7 +50,10 @@ function App() {
     setIsBusy(false);
   }
 
-  return (
+  // @ts-ignore
+    // @ts-ignore
+    // @ts-ignore
+    return (
     <>
       <div className='container mx-auto'>
         <div className='flex flex-row justify-center container mx-auto my-6'>
@@ -72,10 +75,10 @@ function App() {
                     <Skeleton className='w-[215px] h-[25px]'/>
                     <Skeleton className='w-[100px] h-[25px] mb-6'/>
                       <div className='flex flex-col items-center justify-center p-2'>
-                        <div className='flex-1 m-4'>
+                        <div className='flex m-4'>
                           <Skeleton className='w-12 h-12 rounded-full mt-2' />  
                         </div>
-                        <div className='flex-2'>
+                        <div className='flex'>
                           <Skeleton className='w-[100px] h-[25px]' />
                         </div>
                       </div>
@@ -91,10 +94,10 @@ function App() {
                     <CardTitle>{currentData.location?.name}, {currentData.location?.region}</CardTitle>
                     <CardDescription>Current weather</CardDescription>
                     <div className='flex flex-col items-center justify-center p-2'>
-                      <div className='flex-1'>
+                      <div className='flex'>
                         <img src={currentData.current?.condition?.icon} alt='weather image'/>
                       </div>
-                      <div className='flex-2 text-lg'>
+                      <div className='flex text-lg'>
                         <p>{currentData.current?.condition?.text}</p>
                       </div>
                     </div>
@@ -121,27 +124,44 @@ function App() {
         </div>
         <Separator className='mx-auto my-6 w-5/6'/>
         <div className='flex flex-col items-center justify-center'>
-          <div className='flex-1 m-2'>
+          <div className='flex m-2'>
             <h1 className='font-semibold text-4xl'>Forecast</h1>
           </div>
-          <div className='flex-2 flex-row m-2 items-center justify-evenly'>
+          <div className='flex flex-row flex-wrap m-4 items-center justify-evenly w-full'>
             {forecast ? (
               <>
-                {console.log('forecast data:', forecast)}
-                {forecast.forecast?.forecastDay?.map((item,index) => (
-                  <Card key={index} className={cn("w-[215px]")}>
+                {forecast.forecast?.forecastday?.map((item,index) => (
+                  <Card key={index} className={cn("w-[215px] m-2")}>
                     <CardHeader>
                       <CardTitle>{getDay(index)}</CardTitle>
-                      <CardDescription>{item.condition?.text}</CardDescription>
+                      <CardDescription>{item.day?.condition?.text}</CardDescription>
                     </CardHeader>
                     <CardContent>
+                      <div className='flex flex-row justify-evenly'>
+                        <div className='flex flex-col text-xs items-center'>
+                          <img className='w-8' src={item.hour[7]?.condition?.icon} alt='weather image' />
+                          <p>7 AM</p>
+                        </div>
+                        <div className='flex flex-col text-xs'>
+                          <img className='w-8' src={item.hour[12]?.condition?.icon} alt='weather image' />
+                          <p>12 PM</p>
+                        </div>
+                        <div className='flex flex-col text-xs'>
+                          <img className='w-8' src={item.hour[17]?.condition?.icon} alt='weather image' />
+                          <p>5 PM</p>
+                        </div>
+                        <div className='flex flex-col text-xs'>
+                          <img className='w-8' src={item.hour[22]?.condition?.icon} alt='weather image' />
+                          <p>10 PM</p>
+                        </div>
+                      </div>
                     </CardContent>
                   </Card>
                 ))}
               </>
             ) : (
               <>
-              <p>yes</p>
+                No Forecast Available
               </>
             )}
           </div>
