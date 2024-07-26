@@ -57,9 +57,6 @@ function App() {
         </div>
         <Separator className='mx-auto my-6 w-5/6'/>
         <div className='flex flex-col items-center justify-center'>
-          <div className='text-center mb-4'>
-            <h1 className='font-semibold text-4xl'>Current Weather</h1>
-          </div>
           <div className='flex-2 mx-4 text-lg'>
             {currentData ? (
               <Card className={cn("w-[260px]")}>
@@ -67,29 +64,39 @@ function App() {
                 <>
                   <CardHeader>
                     <Skeleton className='w-[215px] h-[25px]'/>
-                    <Skeleton className='w-[100px] h-[25px]'/>
+                    <Skeleton className='w-[100px] h-[25px] mb-6'/>
+                      <div className='flex flex-col items-center justify-center p-2'>
+                        <div className='flex-1 m-4'>
+                          <Skeleton className='w-12 h-12 rounded-full mt-2' />  
+                        </div>
+                        <div className='flex-2'>
+                          <Skeleton className='w-[100px] h-[25px]' />
+                        </div>
+                      </div>
                   </CardHeader>
                   <CardContent>
                     <Skeleton className='w-[185px] h-[20px] mb-2'/>
                     <Skeleton className='w-[185px] h-[20px]'/>
                   </CardContent>
-                  <CardFooter>
-                    <Skeleton className='w-[215px] h-[22px] mb-2'/>
-                  </CardFooter>
                 </>
                 ) : (
                 <>
                   <CardHeader>
                     <CardTitle>{currentData.location?.name}, {currentData.location?.region}</CardTitle>
                     <CardDescription>Current weather</CardDescription>
+                    <div className='flex flex-col items-center justify-center p-2'>
+                      <div className='flex-1'>
+                        <img src={currentData.current?.condition?.icon} alt='weather image'/>
+                      </div>
+                      <div className='flex-2 text-lg'>
+                        <p>{currentData.current?.condition?.text}</p>
+                      </div>
+                    </div>
                   </CardHeader>
                   <CardContent>
-                    <p>Temperature: {currentData.current?.temp_f}&deg;F</p>
+                    <p>Temp: {currentData.current?.temp_f}&deg;F</p>
                     <p>Feels like: {currentData.current?.feelslike_f}&deg;F</p>
                   </CardContent>
-                  <CardFooter>
-                    <p>{currentData.current?.condition?.text}</p>
-                  </CardFooter>
                 </>
                 )}
                 
@@ -113,9 +120,9 @@ function App() {
           </div>
           <div className='flex-2 flex-row m-2 items-center justify-evenly'>
             {forecast ? (
-              <p>yes</p>
+              <></>
             ) : (
-              <p>no</p>
+              <></>
             )}
           </div>
         </div>
