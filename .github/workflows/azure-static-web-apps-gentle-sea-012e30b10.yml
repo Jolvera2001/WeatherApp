@@ -20,6 +20,9 @@ jobs:
           submodules: true
           lfs: false
 
+      - name: Install Dependencies
+        run: npm intsall
+
       - name: Set Env
         env: 
           VITE_WEATHER_API: ${{ secrets.VITE_WEATHER_API }}
