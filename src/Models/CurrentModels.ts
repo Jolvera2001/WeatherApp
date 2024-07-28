@@ -37,6 +37,3 @@ export const RealTimeModelSchema = z.object({
 
 // types
 export type RealTimeModel = z.infer<typeof RealTimeModelSchema>;
-type LocationModel = z.infer<typeof LocationModelSchema>;
-type currentModel = z.infer<typeof CurrentModelSchema>;
-type ConditionModel = z.infer<typeof ConditionModelSchema>;
