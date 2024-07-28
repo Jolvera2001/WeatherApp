@@ -23,6 +23,7 @@ jobs:
       - name: Set Env
         env: 
           VITE_WEATHER_API: ${{ secrets.VITE_WEATHER_API }}
+        run: npm run build
       
       - name: Build And Deploy
         id: builddeploy
