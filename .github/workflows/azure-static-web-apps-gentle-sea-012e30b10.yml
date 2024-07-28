@@ -21,7 +21,7 @@ jobs:
           lfs: false
 
       - name: Install Dependencies
-        run: npm intsall
+        run: npm install
 
       - name: Set Env
         env: 
